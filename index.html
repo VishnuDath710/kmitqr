@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet" />
+    <title>BOOTSTRAP EXAMPLE</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="config.js"></script> <!-- Include the config file -->
+</head>
+
+<body>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./kmit_netra.jpeg" alt="Logo" height="35" class="d-inline-block align-text-top" />
+            </a>
+            <!-- developed by vishnu dath insta vishnudathrockz -->
+            <h2>KMIT  QR ATTENDANCE</h2>
+        </div>
+    </nav>
+    <div class="container my-3 d-flex justify-content-center">
+        <form class="row g-3" id="rollForm">
+            <div class="col-auto">
+                <label for="staticEmail2" class="visually-hidden">Email</label>
+                <input class="form-control" style="text-transform: uppercase" id="rollNoInput" type="text"
+                    placeholder="ENTER ROLL NO" aria-label=".form-control-lg example" />
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container my-3 d-flex justify-content-center">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="container-fluid d-flex flex-row" id="imageContainer">
+                    <!-- Image will be appended here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document
+            .getElementById("rollForm")
+            .addEventListener("submit", function (event) {
+                event.preventDefault();
+                var rollNo = document
+                    .getElementById("rollNoInput")
+                    .value.toUpperCase();
+                var imageContainer = document.getElementById("imageContainer");
+
+                // Check if roll number is empty
+                if (rollNo.trim() === "") {
+                    alert("Roll number cannot be empty");
+                    return;
+                }
+
+                var imageUrl = BASE_URL + rollNo + ".png"; // Constructing the image URL from the base URL and roll number
+
+                // Check if image exists for the entered roll number
+                var http = new XMLHttpRequest();
+                http.open("HEAD", imageUrl, false);
+                http.send();
+                if (http.status !== 200) {
+                    alert("Enter a valid roll number");
+                    return;
+                }
+
+                // If roll number is valid and image exists, append the image to the container
+                var studentImage = document.createElement("img");
+                studentImage.src = imageUrl;
+                studentImage.alt = "STUDENT QR IMAGE";
+                studentImage.width = 300;
+                imageContainer.innerHTML = ''; // Clear previous content
+                imageContainer.appendChild(studentImage);
+            });
+    </script>
+</body>
+
+</html>
