@@ -1,2 +1,2 @@
 // Define base URL
-const BASE_URL = "http://teleuniv.in/netra/studentQR/";
+const BASE_URL = "https://teleuniv.in/netra/studentQR/";
